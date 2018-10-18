@@ -66,6 +66,10 @@ class LoaderNode(template.Node):
         if request.session.is_empty():
             return ''
 
+        # Sometimes host is not in meta, ex. in tests.
+        if 'HTTP_HOST' not in request.META:
+            return ''
+
         try:
             self.ensure_session_key(request)
 
